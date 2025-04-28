@@ -7,15 +7,16 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
-import { useSettingsStore } from './stores/settings/settings';
+import { useProjectsStore } from './stores/projects/projects';
     
-const settingsStore = useSettingsStore();
+const projectsStore = useProjectsStore();
+
 const appSetup = reactive({
   appLoading: true
 })
 
 onMounted(async () => {
-  await settingsStore.getApplicationSettings()
+  await projectsStore.getProjectsList()
   appSetup.appLoading = false
 })
 

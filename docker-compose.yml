@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: donation-app
-    container_name: donation-app
+    image: tasks-app
+    container_name: tasks-app
     restart: unless-stopped
     working_dir: /var/www
     volumes:
@@ -17,11 +17,11 @@ services:
     environment:
       - APP_ENV=local
     networks:
-      - donation-network
+      - tasks-network
 
   nginx:
     image: nginx:alpine
-    container_name: donation-nginx
+    container_name: tasks-nginx
     ports:
       - "8000:80"
     volumes:
@@ -30,11 +30,11 @@ services:
     depends_on:
       - app
     networks:
-      - donation-network 
+      - tasks-network 
       
   db:
     image: mysql:8.0
-    container_name: donation-db
+    container_name: tasks-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -44,35 +44,25 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - donation-network
+      - tasks-network
     ports:
       - "3306:3306"
   
   phpmyadmin:
     image: phpmyadmin
-    container_name: donation-phpmyadmin
+    container_name: tasks-phpmyadmin
     restart: always
     ports:
       - 8080:80
     networks:
-      - donation-network
-      
-  mailpit:
-    image: axllent/mailpit
-    container_name: donation-mailpit
-    ports:
-      - "1025:1025" # SMTP Server
-      - "8025:8025" # Web Interface
-    restart: unless-stopped
-    networks:
-      - donation-network
+      - tasks-network
 
   frontend:
     image: node:18
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: donation-vue
+    container_name: tasks-vue
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -80,10 +70,10 @@ services:
       - "5173:5173"
     command: ["sh", "-c", "npm install && npm run dev"]
     networks:
-      - donation-network
+      - tasks-network
 
 networks:
-  donation-network:
+  tasks-network:
     driver: bridge
 
 volumes:

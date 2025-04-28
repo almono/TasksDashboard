@@ -5,218 +5,40 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/auth/login": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Login",
-                "operationId": "535ffeda4b78916efd658b2844ea897a",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "email": {
-                                        "description": "User Email",
-                                        "type": "string",
-                                        "default": "test@test.test",
-                                        "example": "test@test.test"
-                                    },
-                                    "password": {
-                                        "description": "User Password",
-                                        "type": "string",
-                                        "default": "test",
-                                        "example": "test"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User logged in successfully"
-                    },
-                    "400": {
-                        "description": "Validation failed"
-                    },
-                    "401": {
-                        "description": "User authorization failed"
-                    }
-                }
-            }
-        },
-        "/api/auth/register": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Register",
-                "operationId": "da8643013c2941f5ed7f8a9c9b4a7f7a",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "properties": {
-                                    "name": {
-                                        "description": "User Name",
-                                        "type": "string",
-                                        "default": "test123",
-                                        "example": "test123"
-                                    },
-                                    "email": {
-                                        "description": "User Email",
-                                        "type": "email",
-                                        "default": "test@test.test",
-                                        "example": "test@test.test"
-                                    },
-                                    "password": {
-                                        "description": "User Password",
-                                        "type": "string",
-                                        "default": "test_pass",
-                                        "example": "test_pass"
-                                    },
-                                    "c_password": {
-                                        "description": "Password Confirmation",
-                                        "type": "string",
-                                        "default": "test_pass",
-                                        "example": "test_pass"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User registered successfully"
-                    },
-                    "400": {
-                        "description": "Validation failed"
-                    },
-                    "204": {
-                        "description": "User registration failed"
-                    }
-                }
-            }
-        },
-        "/api/auth/logout": {
-            "post": {
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Logout the authenticated user",
-                "description": "Revokes the user's current access token.",
-                "operationId": "46f8a14c8083abb69eed72768aa08629",
-                "responses": {
-                    "200": {
-                        "description": "Successfully logged out",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Logged out successfully"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized - Invalid token",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Unauthenticated"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
-            }
-        },
-        "/api/settings": {
+        "/api/projects": {
             "get": {
                 "tags": [
-                    "Settings"
+                    "Projects"
                 ],
-                "summary": "Get all settings",
-                "description": "Returns a list of settings",
-                "operationId": "getApplicationSettings",
+                "summary": "Get all projects with tasks",
+                "description": "Returns a list of projects with tasks",
+                "operationId": "getProjects",
                 "responses": {
                     "200": {
                         "description": "Successful response"
                     },
                     "204": {
-                        "description": "No users found"
+                        "description": "No projects found"
                     }
                 }
             }
         },
-        "/api/users": {
+        "/api/tasks": {
             "get": {
                 "tags": [
-                    "Users"
+                    "Tasks"
                 ],
-                "summary": "Get all users",
-                "description": "Returns a list of users (requires Sanctum token).",
-                "operationId": "getUsers",
+                "summary": "Get all tasks",
+                "description": "Returns a list of tasks",
+                "operationId": "getTasks",
                 "responses": {
                     "200": {
-                        "description": "Successful response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "properties": {
-                                            "id": {
-                                                "type": "integer",
-                                                "example": 1
-                                            },
-                                            "name": {
-                                                "type": "string",
-                                                "example": "John Doe"
-                                            },
-                                            "email": {
-                                                "type": "string",
-                                                "example": "john@example.com"
-                                            }
-                                        },
-                                        "type": "object"
-                                    }
-                                }
-                            }
-                        }
+                        "description": "Successful response"
                     },
                     "204": {
-                        "description": "No users found"
+                        "description": "No tasks found"
                     }
-                },
-                "security": [
-                    {
-                        "sanctum": []
-                    }
-                ]
+                }
             }
         }
     },
@@ -241,16 +63,12 @@
     },
     "tags": [
         {
-            "name": "Auth",
-            "description": "Auth"
+            "name": "Projects",
+            "description": "Projects"
         },
         {
-            "name": "Settings",
-            "description": "Settings"
-        },
-        {
-            "name": "Users",
-            "description": "Users"
+            "name": "Tasks",
+            "description": "Tasks"
         }
     ]
 }

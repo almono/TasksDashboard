@@ -18,7 +18,7 @@ class ProjectController extends Controller
      *     path="/api/projects",
      *     summary="Get all projects with tasks",
      *     description="Returns a list of projects with tasks",
-     *     operationId="index",
+     *     operationId="getProjects",
      *     tags={"Projects"},
      *     @OA\Response(
      *         response=200,
@@ -55,7 +55,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Project $project)
     {
         //
     }
@@ -63,7 +63,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(Project $project)
     {
         //
     }
@@ -71,7 +71,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(Request $request, Project $project)
     {
         //
     }
@@ -79,7 +79,7 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task)
+    public function destroy(Project $project)
     {
         //
     }

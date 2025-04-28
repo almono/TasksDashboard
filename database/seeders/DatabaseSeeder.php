@@ -20,7 +20,14 @@ class DatabaseSeeder extends Seeder
 
         // For each project, create 1 to 5 tasks
         $projects->each(function ($project) {
-            Task::factory(rand(1, 5))->create(['project_id' => $project->id]);
+            $numTasks = rand(1, 5);
+        
+            for ($i = 1; $i <= $numTasks; $i++) {
+                Task::factory()->create([
+                    'project_id' => $project->id,
+                    'priority' => $i, // Set priority manually per task in order
+                ]);
+            }
         });
 
         // Create 1 project with no tasks associated

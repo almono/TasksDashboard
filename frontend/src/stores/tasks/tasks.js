@@ -14,40 +14,26 @@ export const useTasksStore = defineStore('tasks', {
         console.error('Failed to load tasks: ', error)
       }
     },
-    async updateTaskOrder(taskList) {
-      this.tasks = taskList
-    },
-    async createTask() {
+    async createTask(data) {
       try {
-        const response = await api.get('/api/settings')
-        this.settings = response.data
+        const response = await api.post('/api/tasks', data)
       } catch (error) {
-        console.error('Failed to load settings: ', error)
+        console.error('Failed to create task: ', error)
       }
     },
-    async editTask() {
+    async updateTask(taskId, updatedTask) {
       try {
-        const response = await api.get('/api/settings')
-        this.settings = response.data
+        const response = await api.patch(`/api/tasks/${taskId}`, updatedTask)
       } catch (error) {
-        console.error('Failed to load settings: ', error)
+        console.error('Failed to edit task: ', error)
       }
     },
-    async deleteTask() {
+    async deleteTask(taskId) {
       try {
-        const response = await api.get('/api/settings')
-        this.settings = response.data
+        const response = await api.delete(`/api/tasks/${taskId}`)
       } catch (error) {
-        console.error('Failed to load settings: ', error)
+        console.error('Failed to delete task: ', error)
       }
-    },
-    async updateTasksOrder() {
-      try {
-        const response = await api.get('/api/settings')
-        this.settings = response.data
-      } catch (error) {
-        console.error('Failed to load settings: ', error)
-      }
-    },
+    }
   }
 })

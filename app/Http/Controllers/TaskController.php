@@ -18,7 +18,7 @@ class TaskController extends Controller
      *     path="/api/tasks",
      *     summary="Get all tasks",
      *     description="Returns a list of tasks",
-     *     operationId="index",
+     *     operationId="getTasks",
      *     tags={"Tasks"},
      *     @OA\Response(
      *         response=200,
@@ -51,7 +51,15 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'description'   => 'nullable|string|max:1000',
+            'project_id'    => 'required|exists:projects,id',
+            'priority'      => 'required|integer|min:1',
+        ]);
+
+        $task = $this->taskService->createTask($validated);
+        return response()->json($task, Response::HTTP_CREATED);
     }
 
     /**
@@ -75,7 +83,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $updatedTask = $this->taskService->updateTask($task, $request->all());
+        return response()->json($updatedTask, Response::HTTP_OK);
     }
 
     /**
@@ -83,6 +92,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $deleteResult = $this->taskService->deleteTask($task);
+        return response()->json($deleteResult, Response::HTTP_NO_CONTENT);
     }
 }

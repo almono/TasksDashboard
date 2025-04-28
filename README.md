@@ -12,7 +12,6 @@ Your project should be available under these URLs:
 - Frontend http://localhost:5137 ( this is the URL that should be used )
 - Laravel http://localhost:8000
 - Swagger UI http://localhost:8000/api/documentation ( OpenAPI for testing some configured endpoints )
-- Mailpit http://localhost:8025 ( this is where the emails coming from the application can be viewed )
 - PHPMyAdmin http://localhost:8080 ( user and password are both "laravel" )
 
 
@@ -22,10 +21,7 @@ Your project should be available under these URLs:
 - Vue.js ( version 3 )
 - MySQL with PHPMyAdmin
 - Nginx
-- Mailpit
-- Basic authentication ( with user login and registration )
 - Swagger UI ( to update Swagger endpoints use ```php artisan l5-swagger:generate``` in the main directory )
-
 
 ## Environment Variables
 

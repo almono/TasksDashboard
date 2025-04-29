@@ -42,3 +42,7 @@ JWT:
 ```
 JWT_SECRET=XXX
 ```
+
+## Example look of the dashboard
+
+![image](https://github.com/user-attachments/assets/19fcc650-f29f-4ee3-b2b6-900ec815f066)
